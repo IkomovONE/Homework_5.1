@@ -240,9 +240,10 @@ var initMap = function initMap(data) {
     minZoom: -3
   });
   var geoJson = L.geoJSON(data, {
+    onEachFeature: getFeature,
     weight: 2
   }).addTo(map);
-  var bounds = geoJson.getBounds();
+  var bounds = geoJson.getBounds;
   map.fitBounds(bounds);
   var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
@@ -254,7 +255,7 @@ var getFeature = function getFeature(feature, layer) {
   if (!feature.properties.id) return;
   var id = feature.properties.id;
   console.log(id);
-  layer.openPopup("Hello");
+  layer.bindPopup(id);
 };
 
 fetchData();
@@ -286,7 +287,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "37515" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46743" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

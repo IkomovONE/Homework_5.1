@@ -11,41 +11,30 @@ const fetchData = async () => {
 };
 
 const initMap = (data) => {
-  let map = L.map("map", { minZoom: -3 })
+  let map = L.map("map", { minZoom: -3 });
 
   let geoJson = L.geoJSON(data, {
-    weight: 2
+    onEachFeature: getFeature,
+
+    weight: 2,
   }).addTo(map);
 
-  let bounds = geoJson.getBounds();
+  let bounds = geoJson.getBounds;
 
   map.fitBounds(bounds);
 
   let osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
-    attribution: "© OpenStreetMap"
+    attribution: "© OpenStreetMap",
   }).addTo(map);
-}
-
+};
 
 const getFeature = (feature, layer) => {
-  
-  
-  
   if (!feature.properties.id) return;
-  const id= feature.properties.id
-  console.log(id)
-  
-  
-  layer.openPopup("Hello")
-  
-  
-  
-}
+  const id = feature.properties.id;
+  console.log(id);
 
-
-
-
-
+  layer.bindPopup(id);
+};
 
 fetchData();
