@@ -11,7 +11,7 @@ const fetchData = async () => {
 };
 
 const initMap = (data) => {
-  let map = L.map("map", { minZoom: -3 }).setView([61.5, 28.1], 7);
+  let map = L.map("map", { minZoom: -3 })
 
   let geoJson = L.geoJSON(data, {
     weight: 2
@@ -25,6 +25,27 @@ const initMap = (data) => {
     maxZoom: 19,
     attribution: "© OpenStreetMap"
   }).addTo(map);
-};
+}
+
+
+const getFeature = (feature, layer) => {
+  
+  
+  
+  if (!feature.properties.id) return;
+  const id= feature.properties.id
+  console.log(id)
+  
+  
+  layer.openPopup("Hello")
+  
+  
+  
+}
+
+
+
+
+
 
 fetchData();
