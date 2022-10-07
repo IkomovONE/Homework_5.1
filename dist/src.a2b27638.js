@@ -240,22 +240,19 @@ var initMap = function initMap(data) {
     minZoom: -3
   });
   var geoJson = L.geoJSON(data, {
-    onEachFeature: getFeature,
+    onEachFeature: getFeature(data),
     weight: 2
   }).addTo(map);
-  var bounds = geoJson.getBounds;
-  map.fitBounds(bounds);
   var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
     attribution: "© OpenStreetMap"
   }).addTo(map);
+  map.fitBounds(geoJson.getBounds());
 };
 
-var getFeature = function getFeature(feature, layer) {
-  if (!feature.properties.id) return;
-  var id = feature.properties.id;
-  console.log(id);
-  layer.bindPopup(id);
+var getFeature = function getFeature(feature, layer, data) {
+  if (!feature.properties) return;
+  layer.bindPopup("\n  \n  <ul>\n    <li> Name: ".concat(data[feature.properties.id], "</li>\n    \n  </ul>\n  \n  \n  "));
 };
 
 fetchData();
@@ -287,7 +284,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46743" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40573" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
